@@ -1,0 +1,118 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light Mode - High-Tech Clean */
+    --background: 0 0% 99%; /* Very light, almost pure white */
+    --foreground: 220 25% 10%; /* Dark, sharp charcoal */
+
+    --card: 0 0% 100%; /* Pure white cards */
+    --card-foreground: 220 25% 10%; /* Match foreground */
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 25% 10%;
+
+    --primary: 200 90% 50%; /* Bright, clear Cyan-Blue */
+    --primary-foreground: 0 0% 100%; /* White text on primary */
+
+    --secondary: 220 20% 95%; /* Very light gray for secondary elements */
+    --secondary-foreground: 220 15% 25%; /* Darker gray for text on secondary */
+
+    --muted: 220 20% 95%;
+    --muted-foreground: 220 15% 45%; /* Slightly lighter muted foreground */
+
+    --accent: 300 85% 55%; /* Vibrant Magenta/Pink */
+    --accent-foreground: 0 0% 100%; /* White text on accent */
+
+    --destructive: 0 75% 55%; /* Clear destructive red */
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 85%; /* Softer, light gray border */
+    --input: 220 15% 85%; 
+    --ring: 200 90% 55%; /* Primary color for rings, slightly brighter */
+
+    --radius: 0.5rem; /* Sharper corners */
+
+    /* Chart Colors - Light Mode (Bright & Clear) */
+    --chart-1: hsl(var(--primary)); /* 200 90% 50% */
+    --chart-2: hsl(var(--accent));  /* 300 85% 55% */
+    --chart-3: 160 75% 45%; /* Strong Teal */
+    --chart-4: 30 90% 60%;  /* Bright Orange */
+    --chart-5: 250 80% 65%; /* Clear Indigo */
+
+    /* Sidebar - Light Mode */
+    --sidebar-background: 220 30% 97%; /* Slightly off-white, distinct from main bg */
+    --sidebar-foreground: hsl(var(--foreground));
+    --sidebar-primary: hsl(var(--primary));
+    --sidebar-primary-foreground: hsl(var(--primary-foreground));
+    --sidebar-accent: 200 70% 92%; /* Lighter shade of primary for selected items */
+    --sidebar-accent-foreground: hsl(var(--primary));
+    --sidebar-border: 220 15% 80%;
+    --sidebar-ring: hsl(var(--ring));
+  }
+
+  .dark {
+    /* Dark Mode - Cybernetic Interface / Digital Frontier */
+    --background: 220 40% 2%; /* Almost black, very deep cool tone */
+    --foreground: 180 100% 95%; /* Luminous Cyan-White text */
+
+    --card: 220 30% 6%; /* Very dark, slightly lighter than background */
+    --card-foreground: 180 100% 95%;
+
+    --popover: 220 25% 5%; /* Dark popover */
+    --popover-foreground: 180 100% 95%;
+
+    --primary: 180 90% 50%; /* Electric Teal/Cyan */
+    --primary-foreground: 220 40% 5%; /* Very dark text on bright primary */
+
+    --secondary: 220 25% 12%; /* Darker secondary surface */
+    --secondary-foreground: 180 60% 80%; /* Lighter, desaturated cyan text */
+
+    --muted: 220 25% 12%;
+    --muted-foreground: 180 40% 65%; /* Muted cyan text */
+
+    --accent: 310 90% 60%; /* Vibrant Magenta/Deep Pink */
+    --accent-foreground: 0 0% 100%; /* White text on accent */
+
+    --destructive: 0 80% 58%; /* Brighter, more intense destructive red */
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 200 50% 20%; /* Subtle, luminous cyan-blue border */
+    --input: 200 50% 18%; 
+    --ring: 180 90% 55%; /* Electric Teal/Cyan for rings, slightly brighter */
+
+    --radius: 0.5rem; /* Sharper corners */
+
+    /* Chart Colors - Dark Mode (Luminous & Vibrant) */
+    --chart-1: hsl(var(--primary)); /* 180 90% 50% */
+    --chart-2: hsl(var(--accent));  /* 310 90% 60% */
+    --chart-3: 220 95% 60%; /* Electric Blue */
+    --chart-4: 45 100% 55%; /* Luminous Gold/Yellow */
+    --chart-5: 130 80% 50%; /* Bright Lime Green */
+    
+    /* Sidebar - Dark Mode */
+    --sidebar-background: 220 50% 1%; /* Even deeper black for sidebar */
+    --sidebar-foreground: hsl(var(--foreground));
+    --sidebar-primary: hsl(var(--primary));
+    --sidebar-primary-foreground: hsl(var(--primary-foreground));
+    --sidebar-accent: 200 40% 15%; /* Dark, subtly lit accent for selected items */
+    --sidebar-accent-foreground: hsl(var(--primary)); /* Electric primary color text on accent */
+    --sidebar-border: 200 30% 10%;
+    --sidebar-ring: hsl(var(--ring));
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  * {
+    @apply border-border;
+  }
+}
+
+    
