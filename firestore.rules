@@ -1,0 +1,68 @@
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Helper function to check if user has a specific role (e.g., 'Admin')
+    function hasRole(role) {
+      return request.auth.token.role == role;
+    }
+    
+    // User profiles:
+    // - Authenticated users can read their own profile.
+    // - Creating user profiles is typically handled by a Cloud Function on user signup (see functions/src/index.ts).
+    // - Updating profiles (especially roles) should be restricted, e.g., only by Admins or specific backend processes.
+    match /users/{userId} {
+      allow read: if isAuthenticated() && request.auth.uid == userId;
+      // allow create: if isAuthenticated(); // Handled by Cloud Function
+      allow update: if isAuthenticated() && request.auth.uid == userId; // User can update their own basic info
+      // allow update: if hasRole('Admin'); // Admins can update any user
+      // allow delete: if hasRole('Admin'); // Only Admins can delete users
+    }
+
+    // System Configuration Settings
+    // - Authenticated users can read these settings.
+    // - For production, write access should be restricted to users with an 'Admin' role.
+    match /systemConfiguration/{settingDocId} {
+      allow read: if isAuthenticated();
+      // To restrict write to Admins:
+      // allow write: if isAuthenticated() && hasRole('Admin');
+      // For now, allowing any authenticated user to write for easier setup:
+      allow write: if isAuthenticated(); 
+    }
+    
+    // Activity Logs:
+    // - Authenticated users (especially admins/auditors) can read.
+    // - Writing logs should ideally be done by backend services/Cloud Functions.
+    match /activityLogs/{logId} {
+      allow read: if isAuthenticated(); // Or restrict to specific roles, e.g., hasRole('Admin')
+      // allow create: if isAuthenticated(); // Or more specific, e.g., backend service account
+      // allow update, delete: if false; // Logs should generally be immutable
+    }
+
+    // Add rules for other collections here, for example:
+    // match /jobRequisitions/{jobId} {
+    //   allow read: if isAuthenticated();
+    //   allow create, update: if isAuthenticated() && (hasRole('Admin') || hasRole('Recruiter'));
+    //   allow delete: if isAuthenticated() && hasRole('Admin');
+    // }
+
+    // match /candidates/{candidateId} {
+    //  allow read: if isAuthenticated() && (hasRole('Admin') || hasRole('Recruiter') || hasRole('Hiring Manager'));
+    //  allow create, update: if isAuthenticated() && (hasRole('Admin') || hasRole('Recruiter'));
+    //  allow delete: if isAuthenticated() && hasRole('Admin');
+    // }
+    
+    // Ensure to define rules for all your collections for security.
+    // Default deny access unless explicitly allowed.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
